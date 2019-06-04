@@ -8,8 +8,38 @@ namespace RSEC_tasks
 {
     abstract class BasicString
     {
+        
+        //Exponentiation method 
+        static int StepenDesyatki(int x)
+        {
+            int result = 0;
+            if (x == 0)
+            {
+                result = 1;
+            }
+            else
+            {
+                if (x == 1)
+                {
+                    result = 10;
+                }
+
+                else
+                {
+                    result = 10;
+                    for (int m = 0; m <= (x - 2); m++)
+                    {
+                        result = result * 10;
+                    }
+                }
+            }
+            return result;
+        }
+
         static void Main(string[] args)
         {
+            string FinalLettersArray = "";
+            string FinalDigitsArray = "";
             List<char> LettersArray = new List<char>();
             List<char> DigitsArray = new List<char>();
             List<int> HelperArray = new List<int>();
@@ -18,7 +48,7 @@ namespace RSEC_tasks
             string InputString = Console.ReadLine();
             char[] CharString = InputString.ToCharArray();
             int item = 0;
-            
+
             for (int i = 0; i < CharString.Length; i++)
             {
                 if (Char.IsDigit(CharString[i]))
@@ -33,12 +63,13 @@ namespace RSEC_tasks
                     }
                     for (int k = (HelperArray.Count - 1); k >= 0; k--)
                     {
-                        double stepen = HelperArray.Count - 1 - k;
-                        item = item + HelperArray[k] * (Math.Pow(10.0, stepen));
+                        int stepen = HelperArray.Count - 1 - k;
+                        item = item + HelperArray[k] * StepenDesyatki(stepen);
                     }
                     IntDigitsArray.Add(item);
-                    i = j-1;
+                    i = j - 1;
                     item = 0;
+                    HelperArray.Clear();
                 }
                 else
                 {
@@ -47,43 +78,37 @@ namespace RSEC_tasks
                         LettersArray.Add(CharString[i]);
                     }
                 }
-
-
-
-                    /*if (Char.IsLetter(CharString[i]))
-                {
-                    LettersArray.Add(CharString[i]);
-                }
-                else
-                {
-                    if (Char.IsDigit(CharString[i]))
-                    {
-                        if (!Char.IsDigit(CharString[i++]))
-                        {
-                            DigitsArray.Add(CharString[i]);
-                        }
-                        else
-                        {
-
-                        }
-                    }
-                }*/
             }
 
             foreach (char symbol in LettersArray)
             {
-                Console.WriteLine(symbol);
+                FinalLettersArray += symbol.ToString();
             }
 
             foreach (int element in IntDigitsArray)
             {
-                Console.WriteLine(element + "\r\n");
+                FinalDigitsArray += element.ToString();
             }
 
-            string WaitString = Console.ReadLine();
 
-            //Console.WriteLine("\r\n" + "Пользователь ввел строку " + InputString + "\r\n");
-            //string WaitString = Console.ReadLine(); Console.WriteLine(CharString[i] + "\r\n");
+            /*foreach (char symbol in LettersArray)
+            {
+                Console.WriteLine(symbol);
+            }
+
+            Console.WriteLine("\n\r");
+
+            foreach (int element in IntDigitsArray)
+            {
+                Console.WriteLine(element);
+            }
+
+            string WaitString = Console.ReadLine();*/
+
+            Console.WriteLine("\r\n" + "Пользователь ввел строку " + InputString + "\r\n");
+            Console.WriteLine("Массив букв " + FinalLettersArray + "\r\n");
+            Console.WriteLine("Массив цифр " + FinalDigitsArray + "\r\n");
+            string WaitString = Console.ReadLine();
         }
     }
 }
